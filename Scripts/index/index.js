@@ -1,7 +1,10 @@
-$(function(){
-    $("#header").load("Pages/header.html"); 
+$( document ).ready(function() {
+    $("#profileSection").show();
+    $("#footer").load("Pages/footer.html"); 
+    $("#header").load("Pages/header.html");
+    hideAllSections();
 });
 
-$(function(){
-    $("#footer").load("Pages/footer.html"); 
-});
+function hideAllSections(){
+    $(".indexSections").hide();
+}

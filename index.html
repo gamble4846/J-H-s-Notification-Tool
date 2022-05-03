@@ -11,15 +11,29 @@
     <!-- -------------------------------------------------------------- -->
 </head>
 <body>
+    <div id="fullPageLoader" class="fullPageLoaderContainer">
+        Loading...
+    </div>
     <header id="header"></header>
-    <div class="content container-fluid"></div>
-    <footer id="footer"></footer>
+    <div class="content container-fluid">
+        <section id="profileSection" class="indexSections">
+            profile
+        </section>
 
+        <section id="companiesSection" class="indexSections">
+            Companies
+        </section>
+
+        <section id="notificationsSection" class="indexSections">
+            Notifications
+        </section>
+    </div>
+    <footer id="footer"></footer>
     <!-- ---------------------------------SCRIPTS-------------------------------- -->
+    <script src="Scripts/globalVars.js"></script>
     <script src="Scripts/jquery-3.6.0.js"></script>
     <script src="Scripts/bootstrap.bundle.min.js"></script>
     <script src="Scripts/fontawesome.js"></script>
-    <script src="Scripts/apiCalls.js"></script>
     <script src="Scripts/index/index.js"></script>
     <!-- ------------------------------------------------------------------------ -->
 </body>

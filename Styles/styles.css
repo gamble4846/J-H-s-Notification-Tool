@@ -1,11 +1,14 @@
+#header{
+    top: 0;
+    position: -webkit-sticky;
+    position: sticky;
+}
+
 .header{
     background-color: black;
     color: white;
     height: 70px;
     margin-bottom: 20px;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
 }
 
 .footer{
@@ -16,7 +19,7 @@
 }
 
 .content{
-    min-height: 100vh;
+    min-height: calc(100vh - (220px + 90px));
 }
 
 ::-webkit-scrollbar {
@@ -34,4 +37,19 @@
 
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
+}
+
+.fullPageLoaderContainer{
+    display: none;
+}
+
+.validationMessage{
+    font-size: 10px;
+    color: red;
+    display: none;
+}
+
+.indexSections{
+    display: none;
+    width: 100%;
 }
