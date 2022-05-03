@@ -1,0 +1,17 @@
+.header{
+    background-color: black;
+    color: white;
+    height: 70px;
+    margin-bottom: 20px;
+}
+
+.footer{
+    background-color: black;
+    color: white;
+    height: 200px;
+    margin-top: 20px;
+}
+
+.content{
+    min-height: 100vh;
+}
