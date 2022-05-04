@@ -1,6 +1,11 @@
 
+$( document ).ready(function() {
+    if(!(localStorage.getItem("JANDHNotificationToolToken") === null)){
+        window.location.replace("../index.html");
+    }
+});
+
 function Login(){
-    console.log(apiLink);
     $("#fullPageLoader").show();
     $.ajax({ 
         type: "POST",
