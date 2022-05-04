@@ -1,5 +1,6 @@
 var token = null;
 var CompaniesList = null;
+var profileDATA = null;
 
 $( document ).ready(function() {
     if((localStorage.getItem("JANDHNotificationToolToken") === null)){
@@ -7,7 +8,7 @@ $( document ).ready(function() {
     }
     else{
         token = localStorage.getItem("JANDHNotificationToolToken");
-        ShowProfile();
+        ShowNotifications();
     }
 });
 
@@ -58,6 +59,7 @@ function ProfileApiGet(){
 }
 
 function ProfileGETSuccess(result){
+    profileDATA = result.data;
     console.log(result);
     $("#LogoURL").val(result.data.LogoURL);
     $("#ContactEmail").val(result.data.ContactEmail);
