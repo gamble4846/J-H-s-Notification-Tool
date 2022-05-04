@@ -31,6 +31,7 @@ function ShowCompanies(){
 function ShowNotifications(){
     hideAllSections();
     $("#notificationsSection").show();
+    NotificationApiGet();
 }
 
 function ShowUser(){
@@ -244,3 +245,44 @@ function CompinesPUTFailed(xhr, ajaxOptions, thrownError){
     console.log(xhr, ajaxOptions, thrownError);
     $("#fullPageLoader").hide();
 }
+
+function NotificationApiGet(){
+    $("#fullPageLoader").show();
+    $.ajax({ 
+        type: "POST",
+        'processData': false,
+        data:JSON.stringify({
+            "method": "GETNOTIFICATION",
+            "tokken": token
+        }),
+        url: apiLink, 
+        crossDomain: true,
+        success: function(result){
+            result = JSON.parse(result);
+            NotificationGETSuccess(result); 
+        },error: function (xhr, ajaxOptions, thrownError) {
+            NotificationGETFailed(xhr, ajaxOptions, thrownError);
+        }
+    });
+}
+
+function NotificationGETSuccess(result){
+    let tableBody = "";
+    CompaniesList = result.data;
+    CompaniesList.pop();
+    CompaniesList.forEach(row => {
+        tableBody += "<tr>";
+        tableBody += "<td>"+row.CompanyName+"</td>";
+        tableBody += "<td>"+row.CompanyCode+"</td>";
+        tableBody += `<td><span onclick="ShowCompanyForm('`+row.CompanyID+`')">Edit</span></td>`
+        tableBody += "</tr>";
+    });
+    $("#companyTableBody").html(tableBody);
+    $("#fullPageLoader").hide();
+}
+
+function NotificationGETFailed(xhr, ajaxOptions, thrownError){
+    console.log(xhr, ajaxOptions, thrownError);
+    $("#fullPageLoader").hide();
+}
+
