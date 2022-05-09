@@ -15,8 +15,6 @@ export class LoginService {
       "Email": email,
       "Password": password
     }
-
-    console.log(body);
     return this.http.post(this.APILINK, body);
   }
 

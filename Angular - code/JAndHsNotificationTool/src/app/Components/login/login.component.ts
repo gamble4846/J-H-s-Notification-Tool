@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/Services/LoginService/login.service';
 import { NotificationService } from 'src/app/Services/NotificationService/notification.service';
+import { SessionManagementService } from 'src/app/Services/SessionManagement/session-management.service';
 
 @Component({
   selector: 'app-login',
@@ -12,26 +13,30 @@ export class LoginComponent implements OnInit {
 
   validateForm!: FormGroup;
 
-  constructor(private Notification:NotificationService,private fb: FormBuilder, private Login: LoginService) { }
+  constructor(private SessionManagement:SessionManagementService, private Notification:NotificationService,private fb: FormBuilder, private Login: LoginService) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
-      password: [null, [Validators.required]],
+      userName: ["jayprakash@JandH.com", [Validators.required, Validators.email]],
+      password: ["admin123#$Jay", [Validators.required]],
       remember: [true]
     });
   }
 
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value.password);
       this.Login.LoginUser(this.validateForm.value.password,this.validateForm.value.userName)
       .subscribe((response:any) => {
         response = JSON.parse(response);
-        console.log(response);
-
         if(response.status != 200){
           this.Notification.HandleServerError(response.message);
+        }
+        else{
+          console.log(this.SessionManagement.isLoggedIn());
+          console.log(response);
+          this.SessionManagement.putCurrentuser(this.validateForm.value.userName, response.data.Tokken);
+          console.log(this.SessionManagement.isLoggedIn());
+          console.log(this.SessionManagement.getCurrentUser());
         }
       },
       (error) => {
