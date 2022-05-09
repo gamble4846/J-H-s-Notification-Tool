@@ -12,6 +12,7 @@ import { SessionManagementService } from 'src/app/Services/SessionManagement/ses
 export class LoginComponent implements OnInit {
 
   validateForm!: FormGroup;
+  fullPageLoading = false;
 
   constructor(private SessionManagement:SessionManagementService, private Notification:NotificationService,private fb: FormBuilder, private Login: LoginService) { }
 
@@ -26,18 +27,22 @@ export class LoginComponent implements OnInit {
 
   submitForm(): void {
     if (this.validateForm.valid) {
+      this.fullPageLoading = true;
       this.Login.LoginUser(this.validateForm.value.password,this.validateForm.value.userName)
       .subscribe((response:any) => {
         response = JSON.parse(response);
         if(response.status != 200){
+          this.fullPageLoading = false;
           this.Notification.HandleServerError(response.message);
         }
         else{
+          this.fullPageLoading = false;
           this.SessionManagement.putCurrentuser(this.validateForm.value.userName, response.data.Tokken);
           this.SessionManagement.redirectAccLogin('Notifications');
         }
       },
       (error) => {
+        this.fullPageLoading = false;
         this.Notification.HandleServerError(error.message);
       });
     } else {
