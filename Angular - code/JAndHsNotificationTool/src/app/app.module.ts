@@ -23,6 +23,7 @@ import { ProfileComponent } from './Components/profile/profile.component';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 //----------------------------------------
 
 registerLocaleData(en);
@@ -48,7 +49,8 @@ registerLocaleData(en);
     NzFormModule,
     NzInputModule,
     NzButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzNotificationModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
