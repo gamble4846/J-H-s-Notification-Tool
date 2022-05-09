@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionManagementService } from 'src/app/Services/SessionManagement/session-management.service';
 
 @Component({
   selector: 'app-user',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private SessionManagement:SessionManagementService) { }
 
   ngOnInit(): void {
+    this.SessionManagement.redirectAccLogin('Users');
   }
 
 }

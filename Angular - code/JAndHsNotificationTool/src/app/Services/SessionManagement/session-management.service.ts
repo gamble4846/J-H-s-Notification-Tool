@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionManagementService {
 
-  constructor() { }
+  constructor(public router:Router) { }
 
   getCurrentUser(){
     let user = JSON.parse(localStorage.getItem('user') || "{}");
@@ -26,5 +27,14 @@ export class SessionManagementService {
 
   isLoggedIn(){
     return (!(this.getCurrentUser().email == undefined));
+  }
+
+  redirectAccLogin(Component:any){
+    if(this.isLoggedIn()){
+      this.router.navigate([Component]);
+    }
+    else{
+      this.router.navigate(['Login']);
+    }
   }
 }

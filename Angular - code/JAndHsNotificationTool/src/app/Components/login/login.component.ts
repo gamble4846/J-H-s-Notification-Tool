@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(private SessionManagement:SessionManagementService, private Notification:NotificationService,private fb: FormBuilder, private Login: LoginService) { }
 
   ngOnInit(): void {
+    this.SessionManagement.redirectAccLogin('Notifications');
     this.validateForm = this.fb.group({
       userName: ["jayprakash@JandH.com", [Validators.required, Validators.email]],
       password: ["admin123#$Jay", [Validators.required]],
@@ -32,11 +33,8 @@ export class LoginComponent implements OnInit {
           this.Notification.HandleServerError(response.message);
         }
         else{
-          console.log(this.SessionManagement.isLoggedIn());
-          console.log(response);
           this.SessionManagement.putCurrentuser(this.validateForm.value.userName, response.data.Tokken);
-          console.log(this.SessionManagement.isLoggedIn());
-          console.log(this.SessionManagement.getCurrentUser());
+          this.SessionManagement.redirectAccLogin('Notifications');
         }
       },
       (error) => {
@@ -51,4 +49,6 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+
+
 }
