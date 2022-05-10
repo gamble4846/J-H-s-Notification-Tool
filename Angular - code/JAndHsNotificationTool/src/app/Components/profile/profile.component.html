@@ -1,1 +1,37 @@
-<p>profile works!</p>
+<form nz-form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="LogoURL" nzRequired>Logo URL</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorLogoURL">
+      <input nz-input type="text" formControlName="LogoURL" id="LogoURL" />
+      <ng-template #errorLogoURL let-control>
+        <ng-container *ngIf="control.hasError('required')">Please Enter Logo URL</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="ContactEmail" nzRequired>Contact Email</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorContactEmail">
+      <input nz-input type="text" formControlName="ContactEmail" id="ContactEmail" />
+      <ng-template #errorContactEmail let-control>
+        <ng-container *ngIf="control.hasError('required')">Please Enter Contact Email</ng-container>
+        <ng-container *ngIf="control.hasError('email')">Please Enter Valid Contact Email</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="Address" nzRequired>Address</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorAddress">
+      <textarea rows="4" nz-input type="text" formControlName="Address" id="Address"></textarea>
+      <ng-template #errorAddress let-control>
+        <ng-container *ngIf="control.hasError('required')">Please Enter Address</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row>
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button nz-button nzType="primary">Update</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<app-loader *ngIf="fullPageLoading"></app-loader>

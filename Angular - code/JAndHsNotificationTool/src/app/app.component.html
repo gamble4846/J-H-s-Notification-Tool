@@ -7,7 +7,8 @@
             [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="https://www.indiamart.com/j-h-textiles/profile.html" target="_blank">
-        <h1>J And H Textiles</h1>
+        <h1 *ngIf="!isCollapsed">J And H Textiles</h1>
+        <h1 *ngIf="isCollapsed">J & H</h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
