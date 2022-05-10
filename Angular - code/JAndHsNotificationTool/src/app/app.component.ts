@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SessionManagementService } from './Services/SessionManagement/session-management.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   isCollapsed = false;
+
+  constructor(private SessionManagement:SessionManagementService){}
+
+  logout(){
+    this.SessionManagement.deleteCurrentuser();
+    this.SessionManagement.redirectAccLogin("");
+  }
 }
