@@ -8,7 +8,7 @@ import { NotificationService } from '../NotificationService/notification.service
   providedIn: 'root'
 })
 export class ProfileService {
-  APILINK = "https://script.google.com/macros/s/AKfycbwCcwCwWoK9oFmXUgDR28CSXo1pbOQOCW3c8VvNsku3On9tV0nYzelKr0JyOS4DUQsK/exec";
+  APILINK = "https://script.google.com/macros/s/AKfycbzW-xeD3wz_NZi-UiiPwjwBxOGFTBeRYw1fP_X3x_qwZ3uQIqSRlDj-xUijECNRxM7A/exec";
   constructor(private http: HttpClient, private SessionManagement:SessionManagementService) { }
 
   getOptions(){
@@ -24,6 +24,18 @@ export class ProfileService {
       "method": "GETPROFILE",
       "tokken": this.SessionManagement.getCurrentUser().token
     }
+    return this.http.post(this.APILINK, body, this.getOptions());
+  }
+
+  UpdateProfile(LogoURL:any, ContactEmail:any, Address:any){
+    let body = {
+      "method": "UPDATEPROFILE",
+      "LogoURL": LogoURL,
+      "ContactEmail": ContactEmail,
+      "Address": Address,
+      "tokken": this.SessionManagement.getCurrentUser().token
+    }
+
     return this.http.post(this.APILINK, body, this.getOptions());
   }
 }

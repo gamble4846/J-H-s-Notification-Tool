@@ -26,9 +26,9 @@ export class ProfileComponent implements OnInit {
 
   profileForm!: FormGroup;
 
-  updateProfile(): void {
+  ProfileFormSubmit(): void {
     if (this.profileForm.valid) {
-      console.log('submit', this.profileForm.value);
+      this.updateProfile(this.profileForm.value.LogoURL, this.profileForm.value.ContactEmail, this.profileForm.value.Address);
     } else {
       Object.values(this.profileForm.controls).forEach(control => {
         if (control.invalid) {
@@ -37,6 +37,27 @@ export class ProfileComponent implements OnInit {
         }
       });
     }
+  }
+
+  updateProfile(LogoURL:any, ContactEmail:any, Address:any){
+    this.fullPageLoading = true;
+    this.Profile.UpdateProfile(LogoURL,ContactEmail,Address)
+    .subscribe((response:any) => {
+      response = JSON.parse(response);
+      this.fullPageLoading = false;
+      if(response.status != "200"){
+        this.fullPageLoading = false;
+        this.Notification.HandleServerError(response.message);
+      }
+      else{
+        this.fullPageLoading = false;
+        this.getProfile();
+      }
+    },
+    (error) => {
+      this.fullPageLoading = false;
+      this.Notification.HandleServerError(error.message);
+    });
   }
 
   getProfile(){

@@ -1,4 +1,4 @@
-<form nz-form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+<form nz-form [formGroup]="profileForm" (ngSubmit)="ProfileFormSubmit()">
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="LogoURL" nzRequired>Logo URL</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorLogoURL">
