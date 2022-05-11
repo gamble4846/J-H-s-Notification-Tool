@@ -24,3 +24,19 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.editButton{
+  border: 1px solid #52BF90;
+  cursor: pointer;
+  padding: 5px 10px !important;
+  background-color: #317256;
+  border-radius: 5px;
+}
+
+.editButton > i{
+  color: #B5E550;
+}
+
+.editButton:hover{
+  background-color: #398564;
+}

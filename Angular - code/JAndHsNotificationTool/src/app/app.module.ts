@@ -26,6 +26,9 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { LoaderComponent } from './Components/loader/loader.component';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 //----------------------------------------
 
 registerLocaleData(en);
@@ -54,7 +57,10 @@ registerLocaleData(en);
     NzButtonModule,
     ReactiveFormsModule,
     NzNotificationModule,
-    NzSpinModule
+    NzSpinModule,
+    NzTableModule,
+    NzIconModule,
+    NzModalModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

@@ -1,2 +1,39 @@
-<p>companies works!</p>
+<div class="addCompanyContainer">
+  <button nz-button nzType="primary" (click)="ShowCompanyModal(null)">Add Company</button>
+</div>
 
+<nz-modal [(nzVisible)]="CompanyModal" (nzOnCancel)="CompanyModalCancel()" (nzOnOk)="CompanyModalSave()">
+  <ng-container *nzModalTitle>
+    <h3>{{CompanyModalTitle}}</h3>
+  </ng-container>
+  <ng-container *nzModalContent>
+
+  </ng-container>
+  <ng-container *nzModalFooter>
+    <button nz-button nzType="primary" (click)="CompanyModalSave()">Save</button>
+    <button nz-button nzType="primary" nzDanger (click)="CompanyModalCancel()">Cancel</button>
+  </ng-container>
+</nz-modal>
+
+<nz-table #CompaniesTable [nzData]="CompaniesData">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of CompaniesTable.data">
+      <td>{{data.CompanyName}}</td>
+      <td>{{data.CompanyCode}}</td>
+      <td>
+        <button class="editButton" (click)="ShowCompanyModal(data)">
+          <i nz-icon nzType="edit" nzTheme="fill"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<app-loader *ngIf="fullPageLoading"></app-loader>
