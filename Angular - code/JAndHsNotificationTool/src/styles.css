@@ -40,3 +40,20 @@
 .editButton:hover{
   background-color: #398564;
 }
+
+
+.imageButton{
+  border: 1px solid #03204C;
+  cursor: pointer;
+  padding: 5px 10px !important;
+  background-color: #04396D;
+  border-radius: 5px;
+}
+
+.imageButton > i{
+  color: #6497B2;
+}
+
+.imageButton:hover{
+  background-color: #035C96;
+}
