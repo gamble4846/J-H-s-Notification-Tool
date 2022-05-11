@@ -25,4 +25,25 @@ export class CompaniesService {
     }
     return this.http.post(this.APILINK, body, this.getOptions());
   }
+
+  PostCompany(code:any, name:any){
+    let body = {
+      "method": "POSTCOMPANY",
+      "tokken": this.SessionManagement.getCurrentUser().token,
+      "CompanyName": name,
+      "CompanyCode": code
+    }
+    return this.http.post(this.APILINK, body, this.getOptions());
+  }
+
+  PutCompany(code:any, name:any, id:any){
+    let body = {
+      "method": "PUTCOMPANY",
+      "tokken": this.SessionManagement.getCurrentUser().token,
+      "CompanyName": name,
+      "CompanyCode": code,
+      "CompanyId": id
+    }
+    return this.http.post(this.APILINK, body, this.getOptions());
+  }
 }
