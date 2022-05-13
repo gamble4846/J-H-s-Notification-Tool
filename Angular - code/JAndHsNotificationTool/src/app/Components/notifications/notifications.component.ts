@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { CompaniesService } from 'src/app/Services/CompaniesService/companies.service';
 import { NotificationSERService } from 'src/app/Services/NotificationSERService/notification-ser.service';
 import { NotificationService } from 'src/app/Services/NotificationService/notification.service';
+import { ProfileService } from 'src/app/Services/ProfileService/profile.service';
 import { SessionManagementService } from 'src/app/Services/SessionManagement/session-management.service';
 import { UserService } from 'src/app/Services/UserService/user.service';
 
@@ -16,13 +17,14 @@ export class NotificationsComponent implements OnInit {
   notificationData:any = [];
   CompaniesData:any = [];
   UserData:any = [];
-  showTable=true;
-  constructor(private User: UserService, private Companies: CompaniesService, private SessionManagement:SessionManagementService, private Notification:NotificationService, private fb: FormBuilder, private NotificationSER: NotificationSERService) { }
+  ProfileData:any = {};
+  showTable=false;
+  constructor( private Profile: ProfileService, private User: UserService, private Companies: CompaniesService, private SessionManagement:SessionManagementService, private Notification:NotificationService, private fb: FormBuilder, private NotificationSER: NotificationSERService) { }
 
   ngOnInit(): void {
     this.SessionManagement.redirectAccLogin('Notifications');
 
-    this.UpdateNotifications();
+    //this.UpdateNotifications();
   }
 
   UpdateNotifications(){
@@ -57,16 +59,31 @@ export class NotificationsComponent implements OnInit {
               else{
                 this.UserData = response.data;
                 this.UserData.pop();
-                console.log(this.UserData);
-                this.AllDataRecieved();
-                this.fullPageLoading = false;
+                this.Profile.GetProfile()
+                .subscribe((response:any) => {
+                  response = JSON.parse(response);
+                  this.fullPageLoading = false;
+                  if(response.status != "200"){
+                    this.fullPageLoading = false;
+                    this.Notification.HandleServerError(response.message);
+                  }
+                  else{
+                    this.fullPageLoading = false;
+                    this.ProfileData = response.data;
+                    this.AllDataRecieved();
+                    this.fullPageLoading = false;
+                  }
+                },
+                (error) => {
+                  this.fullPageLoading = false;
+                  this.Notification.HandleServerError(error.message);
+                });
               }
             },
             (error) => {
               this.fullPageLoading = false;
               this.Notification.HandleServerError(error.message);
             });
-            this.fullPageLoading = false;
           }
         },
         (error) => {
@@ -86,8 +103,6 @@ export class NotificationsComponent implements OnInit {
       noti.CompanyName = this.CompaniesData.find((x:any) => x.CompanyID = noti.CompanyID).CompanyName;
       noti.UserName = this.UserData.find((x:any) => x.UsersId = noti.UsersId).Name;
     });
-
-    console.log(this.notificationData);
   }
 
   ShowNotificationForm(){
@@ -97,4 +112,6 @@ export class NotificationsComponent implements OnInit {
   ShowTable(){
     this.showTable=true;
   }
+
+
 }

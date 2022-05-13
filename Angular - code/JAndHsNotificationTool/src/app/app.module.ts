@@ -29,6 +29,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 //----------------------------------------
 
 registerLocaleData(en);
@@ -60,7 +61,8 @@ registerLocaleData(en);
     NzSpinModule,
     NzTableModule,
     NzIconModule,
-    NzModalModule
+    NzModalModule,
+    NzGridModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

@@ -57,3 +57,66 @@
 .imageButton:hover{
   background-color: #035C96;
 }
+
+.NotificationColumn{
+  border: 1px solid black;
+}
+
+.NotificationContainer{
+  padding: 5px;
+}
+
+.HeaderNotificationContainer{
+  display: flex;
+  align-items: end;
+}
+
+.NotificationTitleContainer{
+  padding: 5px 10px;
+  background-color: yellow;
+  font-size: 20px;
+  font-weight: bold;
+  height: max-content;
+  width: max-content;
+  border: 1px solid black;
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.ImageContainer img{
+  width: 80px;
+}
+
+.PartyCodeContainer{
+  text-align: right;
+}
+
+.NotificationHR{
+  height: 5px;
+  background-color: black;
+  border: 0px;
+}
+
+.ContactContainer{
+  text-align: center;
+}
+
+.ContactUsContainer{
+  text-align: center;
+  font-size: 15px;
+}
+
+.emailFull{
+  color: blue;
+  text-decoration: underline;
+}
+
+.NoticationContent{
+  padding: 50px 10px;
+}
+
+.NotificationGreetings{
+  font-weight: bold;
+}
