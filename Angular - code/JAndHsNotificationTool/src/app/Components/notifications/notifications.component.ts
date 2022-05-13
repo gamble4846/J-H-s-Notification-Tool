@@ -129,6 +129,7 @@ export class NotificationsComponent implements OnInit {
         console.error('oops, something went wrong!', error);
       });
 
+      //lol
 
   }
 
