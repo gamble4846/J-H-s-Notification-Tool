@@ -60,15 +60,19 @@
 
 .NotificationColumn{
   border: 1px solid black;
+  overflow-x: auto;
 }
 
 .NotificationContainer{
   padding: 5px;
+  width: 600px !important;
+  background-color: white;
 }
 
 .HeaderNotificationContainer{
   display: flex;
   align-items: end;
+  position: relative;
 }
 
 .NotificationTitleContainer{
@@ -119,4 +123,17 @@
 
 .NotificationGreetings{
   font-weight: bold;
+}
+
+.w-100{
+  width: 100%;
+}
+
+#NotificationDIVToSave{
+  padding: 5px;
+}
+
+.NotificationDivSaveCover{
+  position: relative;
+  width: 700px;
 }
