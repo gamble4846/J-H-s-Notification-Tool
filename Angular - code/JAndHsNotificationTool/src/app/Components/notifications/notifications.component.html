@@ -1,33 +1,41 @@
-<div class="addNotificationContainer">
-  <button nz-button nzType="primary">Add Notification</button>
-</div>
+<section *ngIf="!showTable">
+  <div class="addNotificationContainer">
+    <button nz-button nzType="primary" (click)="ShowTable()">Back</button>
+  </div>
+</section>
 
-<nz-table #CompaniesTable [nzData]="notificationData">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Company Name</th>
-      <th>Notification</th>
-      <th>Created By</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of CompaniesTable.data">
-      <td>{{data.Date}}</td>
-      <td>{{data.CompanyName}}</td>
-      <td>{{data.Notification}}</td>
-      <td>{{data.UsersId}}</td>
-      <td>
-        <button class="editButton">
-          <i nz-icon nzType="edit" nzTheme="fill"></i>
-        </button>
-        <button class="imageButton">
-          <i nz-icon nzType="file-image" nzTheme="fill"></i>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>
+<section *ngIf="showTable">
+  <div class="addNotificationContainer">
+    <button nz-button nzType="primary" (click)="ShowNotificationForm()">Add Notification</button>
+  </div>
+
+  <nz-table #CompaniesTable [nzData]="notificationData">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Company Name</th>
+        <th>Notification</th>
+        <th>Created By</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of CompaniesTable.data">
+        <td>{{data.Date}}</td>
+        <td>{{data.CompanyName}}</td>
+        <td>{{data.Notification}}</td>
+        <td>{{data.UserName}}</td>
+        <td>
+          <button class="editButton">
+            <i nz-icon nzType="edit" nzTheme="fill"></i>
+          </button>
+          <button class="imageButton">
+            <i nz-icon nzType="file-image" nzTheme="fill"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</section>
 
 <app-loader *ngIf="fullPageLoading"></app-loader>
