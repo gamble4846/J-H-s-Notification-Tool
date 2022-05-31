@@ -26,17 +26,23 @@ export class NotificationSERService {
   }
 
   PostNotificaitons(newDate:any, CompanyID:any, Notification:any){
-    console.log(newDate);
-    console.log(CompanyID);
-    console.log(Notification);
     newDate = '"' + newDate + '"';
-
     let body = {
       "method": "POSTNOTIFICATION",
       "tokken": this.SessionManagement.getCurrentUser().token,
       "newDate": newDate,
       "CompanyID": CompanyID,
       "Notification": Notification
+    }
+    return this.http.post(this.APILINK, body, this.getOptions());
+  }
+
+  PutNotificaitons(NotificationID:any, Notification:any){
+    let body = {
+      "method": "PUTNOTIFICATION",
+      "tokken": this.SessionManagement.getCurrentUser().token,
+      "Notification": Notification,
+      "NotificationID": NotificationID
     }
     return this.http.post(this.APILINK, body, this.getOptions());
   }

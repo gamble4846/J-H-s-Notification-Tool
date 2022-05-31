@@ -169,22 +169,43 @@ export class NotificationsComponent implements OnInit {
   SaveNotificaiton(){
     this.NewNotificationAdded = true;
     this.fullPageLoading = true;
-    this.NotificationSER.PostNotificaitons(this.NewDate, this.SelectedCompany, this.NotificationMessage)
-    .subscribe((response:any) => {
-      response = JSON.parse(response);
-      if(response.status != 200){
+    if(this.EditNotificationObject == null){
+      this.NotificationSER.PostNotificaitons(this.NewDate, this.SelectedCompany, this.NotificationMessage)
+      .subscribe((response:any) => {
+        response = JSON.parse(response);
+        if(response.status != 200){
+          this.fullPageLoading = false;
+          this.Notification.HandleServerError(response.message);
+        }
+        else{
+          this.fullPageLoading = false;
+          console.log(response);
+        }
+      },
+      (error) => {
         this.fullPageLoading = false;
-        this.Notification.HandleServerError(response.message);
-      }
-      else{
+        this.Notification.HandleServerError(error.message);
+      });
+    }
+    else{
+      this.NotificationSER.PutNotificaitons(this.EditNotificationObject.NotificationID,this.NotificationMessage)
+      .subscribe((response:any) => {
+        response = JSON.parse(response);
+        if(response.status != 200){
+          this.fullPageLoading = false;
+          this.Notification.HandleServerError(response.message);
+        }
+        else{
+          this.fullPageLoading = false;
+          console.log(response);
+        }
+      },
+      (error) => {
         this.fullPageLoading = false;
-        console.log(response);
-      }
-    },
-    (error) => {
-      this.fullPageLoading = false;
-      this.Notification.HandleServerError(error.message);
-    });
+        this.Notification.HandleServerError(error.message);
+      });
+    }
+
   }
 
   AllDataRecieved(){
