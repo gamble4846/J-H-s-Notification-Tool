@@ -9,7 +9,7 @@
 
         <div class="formItemContainer">
           <label>Company</label><br>
-          <nz-select [(ngModel)]="SelectedCompany" (ngModelChange)="CompanyChanged()">
+          <nz-select [(ngModel)]="SelectedCompany" (ngModelChange)="CompanyChanged()" [disabled]="EditNotificationObject != null">
             <nz-option *ngFor="let company of CompaniesData" nzValue={{company.CompanyID}} nzLabel={{company.CompanyName}}></nz-option>
           </nz-select>
         </div>
@@ -33,7 +33,7 @@
     <div nz-col nzSpan="12" class="NotificationColumn">
       <div id="NotificationDIV" class="NotificationContainer">
         <div class="PartyCodeContainer">
-          Party Code : {{SelectedCompanyObject.CompanyCode}}-0332/{{NewDate}}
+          Party Code : {{SelectedCompanyObject.CompanyCode}}-{{NotificationCount}}/{{NewDate}}
         </div>
         <div class="HeaderNotificationContainer">
           <div class="ImageContainer">
@@ -91,7 +91,7 @@
         <td>{{data.Notification}}</td>
         <td>{{data.UserName}}</td>
         <td>
-          <button class="editButton">
+          <button class="editButton" (click)="ShowNotificationForm(data)">
             <i nz-icon nzType="edit" nzTheme="fill"></i>
           </button>
         </td>

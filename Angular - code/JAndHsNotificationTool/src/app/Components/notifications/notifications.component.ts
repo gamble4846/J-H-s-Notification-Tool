@@ -32,13 +32,14 @@ export class NotificationsComponent implements OnInit {
   SelectedCompany:any;
   SelectedCompanyObject:any;
   NewDate:any;
+  NotificationCount:any;
+  EditNotificationObject:any;
   //----------------------------------------
 
   constructor( private Profile: ProfileService, private User: UserService, private Companies: CompaniesService, private SessionManagement:SessionManagementService, private Notification:NotificationService, private fb: FormBuilder, private NotificationSER: NotificationSERService) { }
 
   ngOnInit(): void {
     this.SessionManagement.redirectAccLogin('Notifications');
-    this.resetForm();
     this.UpdateNotifications();
   }
 
@@ -131,6 +132,15 @@ export class NotificationsComponent implements OnInit {
   CompanyChanged(){
     console.log(this.SelectedCompany);
     this.SelectedCompanyObject = this.CompaniesData.find((x:any)=> x.CompanyID == this.SelectedCompany);
+
+    let allCompanyNotifications = this.notificationData.filter((x:any)=> x.CompanyID == this.SelectedCompany);
+
+    if(this.EditNotificationObject == null){
+      this.NotificationCount = allCompanyNotifications.length + 1;
+    }
+    else{
+      this.NotificationCount = allCompanyNotifications.findIndex((x:any) => x.NotificationID == this.EditNotificationObject.NotificationID) + 1;
+    }
   }
 
   resetForm(){
@@ -142,12 +152,25 @@ export class NotificationsComponent implements OnInit {
 
     this.Greetings = "Dear Customer,";
     this.NotificationMessage = "";
-    this.SelectedCompany = this.CompaniesData[0];
+    this.SelectedCompany = this.CompaniesData[0].CompanyID;
     this.SelectedCompanyObject = this.CompaniesData[0];
 
     let today = (new Date());
     this.NewDate = today.getFullYear() + "/" + today.getMonth() + "/" + today.getDay();
 
+    let allCompanyNotifications = this.notificationData.filter((x:any)=> x.CompanyID == this.SelectedCompany);
+
+    console.log(this.EditNotificationObject);
+
+    if(this.EditNotificationObject == null){
+      this.NotificationCount = allCompanyNotifications.length + 1;
+    }
+    else{
+      this.NotificationCount = allCompanyNotifications.findIndex((x:any) => x.NotificationID == this.EditNotificationObject.NotificationID) + 1;
+      this.SelectedCompanyObject = this.CompaniesData.find((x:any) => x.CompanyID == this.EditNotificationObject.CompanyID);
+      this.SelectedCompany = this.SelectedCompanyObject.CompanyID;
+      this.NewDate = this.EditNotificationObject.Date;
+    }
   }
 
   SaveNotificaiton(){
@@ -162,9 +185,8 @@ export class NotificationsComponent implements OnInit {
   }
 
   ShowNotificationForm(data:any){
-    if(data == null){
-      this.resetForm();
-    }
+    this.EditNotificationObject = data;
+    this.resetForm();
     this.showTable=false;
   }
 
