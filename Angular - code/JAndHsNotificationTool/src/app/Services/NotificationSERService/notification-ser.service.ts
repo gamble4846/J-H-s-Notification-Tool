@@ -7,7 +7,7 @@ import { SessionManagementService } from '../SessionManagement/session-managemen
   providedIn: 'root'
 })
 export class NotificationSERService {
-  APILINK = "https://script.google.com/macros/s/AKfycbxqLqMWQOWaSOQTIIa_YHjj-rz7P8kO8cUv7gJFddrJLvIaSbyGHuqpAi4jnqZX3fk/exec";
+  APILINK = "https://script.google.com/macros/s/AKfycbw-keS3ji-svKmFcpG505JkT4PJDvLNA5k8ph50KBkZ4O-LxuYy7GM7g9bT4Bi-GQtC/exec";
   constructor(private http: HttpClient, private SessionManagement:SessionManagementService) { }
 
   getOptions(){

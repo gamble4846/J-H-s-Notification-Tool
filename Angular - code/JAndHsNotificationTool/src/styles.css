@@ -137,3 +137,7 @@
   position: relative;
   width: 700px;
 }
+
+.ant-select{
+  width: 100% !important;
+}

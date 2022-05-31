@@ -21,14 +21,25 @@ export class NotificationsComponent implements OnInit {
   CompaniesData:any = [];
   UserData:any = [];
   ProfileData:any = {};
-  showTable=false;
+  CurrentUserData:any;
+  showTable=true;
   isSaving = false;
+
+
+  //--------------------FORM----------------
+  Greetings:any;
+  NotificationMessage:any;
+  SelectedCompany:any;
+  SelectedCompanyObject:any;
+  NewDate:any;
+  //----------------------------------------
+
   constructor( private Profile: ProfileService, private User: UserService, private Companies: CompaniesService, private SessionManagement:SessionManagementService, private Notification:NotificationService, private fb: FormBuilder, private NotificationSER: NotificationSERService) { }
 
   ngOnInit(): void {
     this.SessionManagement.redirectAccLogin('Notifications');
-
-    //this.UpdateNotifications();
+    this.resetForm();
+    this.UpdateNotifications();
   }
 
   UpdateNotifications(){
@@ -72,10 +83,25 @@ export class NotificationsComponent implements OnInit {
                     this.Notification.HandleServerError(response.message);
                   }
                   else{
-                    this.fullPageLoading = false;
                     this.ProfileData = response.data;
-                    this.AllDataRecieved();
-                    this.fullPageLoading = false;
+                    this.fullPageLoading = true;
+                    this.User.GetCurrentUser()
+                    .subscribe((response:any) => {
+                      response = JSON.parse(response);
+                      if(response.status != "200"){
+                        this.fullPageLoading = false;
+                        this.Notification.HandleServerError(response.message);
+                      }
+                      else{
+                        this.CurrentUserData = response.data;
+                        this.AllDataRecieved();
+                        this.fullPageLoading = false;
+                      }
+                    },
+                    (error) => {
+                      this.fullPageLoading = false;
+                      this.Notification.HandleServerError(error.message);
+                    });
                   }
                 },
                 (error) => {
@@ -102,6 +128,32 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
+  CompanyChanged(){
+    console.log(this.SelectedCompany);
+    this.SelectedCompanyObject = this.CompaniesData.find((x:any)=> x.CompanyID == this.SelectedCompany);
+  }
+
+  resetForm(){
+    console.log(this.notificationData);
+    console.log(this.CompaniesData);
+    console.log(this.UserData);
+    console.log(this.ProfileData);
+    console.log(this.CurrentUserData);
+
+    this.Greetings = "Dear Customer,";
+    this.NotificationMessage = "";
+    this.SelectedCompany = this.CompaniesData[0];
+    this.SelectedCompanyObject = this.CompaniesData[0];
+
+    let today = (new Date());
+    this.NewDate = today.getFullYear() + "/" + today.getMonth() + "/" + today.getDay();
+
+  }
+
+  SaveNotificaiton(){
+
+  }
+
   AllDataRecieved(){
     this.notificationData.forEach((noti:any) => {
       noti.CompanyName = this.CompaniesData.find((x:any) => x.CompanyID = noti.CompanyID).CompanyName;
@@ -109,7 +161,10 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
-  ShowNotificationForm(){
+  ShowNotificationForm(data:any){
+    if(data == null){
+      this.resetForm();
+    }
     this.showTable=false;
   }
 

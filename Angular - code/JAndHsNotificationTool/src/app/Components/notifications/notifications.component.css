@@ -2,3 +2,15 @@
   text-align: right;
   padding: 10px;
 }
+
+.NotificationForm{
+  padding: 0px 10px;
+}
+
+.saveButtonContainer{
+  padding: 0px 0px;
+}
+
+.formItemContainer{
+  padding-bottom: 10px;
+}

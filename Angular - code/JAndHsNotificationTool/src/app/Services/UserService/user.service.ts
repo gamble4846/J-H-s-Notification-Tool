@@ -6,7 +6,7 @@ import { SessionManagementService } from '../SessionManagement/session-managemen
   providedIn: 'root'
 })
 export class UserService {
-  APILINK = "https://script.google.com/macros/s/AKfycbxGJcx4I1BOKQAgWqOvZqCssix39ilfSkgwd0t4MrJDQXbo74dOZDSSQZwpkiRok5Il/exec";
+  APILINK = "https://script.google.com/macros/s/AKfycbw-keS3ji-svKmFcpG505JkT4PJDvLNA5k8ph50KBkZ4O-LxuYy7GM7g9bT4Bi-GQtC/exec";
   constructor(private http: HttpClient, private SessionManagement:SessionManagementService) { }
 
   getOptions(){
@@ -20,6 +20,14 @@ export class UserService {
   GetUsers() {
     let body = {
       "method": "GETUSERS",
+      "tokken": this.SessionManagement.getCurrentUser().token
+    }
+    return this.http.post(this.APILINK, body, this.getOptions());
+  }
+
+  GetCurrentUser(){
+    let body = {
+      "method": "GETCURRENTUSER",
       "tokken": this.SessionManagement.getCurrentUser().token
     }
     return this.http.post(this.APILINK, body, this.getOptions());

@@ -5,19 +5,39 @@
 
   <div nz-row>
     <div nz-col nzSpan="12">
-      <div>
-        FORM
-        <button nz-button nzType="primary" (click)="SaveImage()">Save Image</button>
+      <div class="NotificationForm">
+
+        <div class="formItemContainer">
+          <label>Company</label><br>
+          <nz-select [(ngModel)]="SelectedCompany" (ngModelChange)="CompanyChanged()">
+            <nz-option *ngFor="let company of CompaniesData" nzValue={{company.CompanyID}} nzLabel={{company.CompanyName}}></nz-option>
+          </nz-select>
+        </div>
+
+        <div class="formItemContainer">
+          <label>Greetings</label><br>
+          <input type="text" nz-input [(ngModel)]="Greetings" />
+        </div>
+
+        <div class="formItemContainer">
+          <label>Message</label><br>
+          <textarea rows="4" nz-input [(ngModel)]="NotificationMessage"></textarea>
+        </div>
+
+        <div class="saveButtonContainer">
+          <button nz-button nzType="primary" (click)="SaveNotificaiton()">Save Notification</button>
+          <button nz-button nzType="primary" (click)="SaveImage()"><i nz-icon nzType="download" nzTheme="outline"></i> Download Image</button>
+        </div>
       </div>
     </div>
     <div nz-col nzSpan="12" class="NotificationColumn">
       <div id="NotificationDIV" class="NotificationContainer">
         <div class="PartyCodeContainer">
-          Party Code : TMP-0332/2021/12/02
+          Party Code : {{SelectedCompanyObject.CompanyCode}}-0332/{{NewDate}}
         </div>
         <div class="HeaderNotificationContainer">
           <div class="ImageContainer">
-            <img src="https://lh3.googleusercontent.com/a-/AOh14GgidfeDV0Aaaqwd6J84DSKdplGshdrFGrqpxi_Y=s70-p-k-rw-no">
+            <img src={{ProfileData.LogoURL}}>
           </div>
           <div class="NotificationTitleContainer">
             Notification
@@ -26,22 +46,22 @@
         <hr class="NotificationHR">
 
         <div class="NoticationContent">
-          <div class="NotificationGreetings">Dear Customer,</div><br>
-          <div class="NotificationMessage">This Message is to Notify you that your Following, trade name : Mac Donald's Denium Jeans Fabric Sample swatches has been submitted to the Denium Exim Department. The process will take, 1-2 days. We appreciate your paitence. Thank you. </div>
+          <div class="NotificationGreetings">{{Greetings}}</div><br>
+          <div class="NotificationMessage">{{NotificationMessage}}</div>
         </div>
 
         <hr class="NotificationHR">
         <div class="ContactContainer">
-          Jayprakash: +91 9974736101
+          {{CurrentUserData[3]}}: {{CurrentUserData[4]}}
         </div>
         <hr class="NotificationHR">
         <div class="ContactUsContainer">
           <h2>Contact Us:</h2>
           <div class="emailContainer">
-            E-mail: <span class="emailFull">jhtextileslimited@gmail.com</span>
+            E-mail: <span class="emailFull">{{CurrentUserData[1]}}</span>
           </div>
           <div class="addressContainer">
-            Office: B-1036, City center-2, nr. New Cloth Market Raipur, Ahmedabad - 380002
+            {{ProfileData.Address}}
           </div>
         </div>
       </div>
@@ -51,7 +71,7 @@
 
 <section *ngIf="showTable">
   <div class="addNotificationContainer">
-    <button nz-button nzType="primary" (click)="ShowNotificationForm()">Add Notification</button>
+    <button nz-button nzType="primary" (click)="ShowNotificationForm(null)">Add Notification</button>
   </div>
 
   <nz-table #CompaniesTable [nzData]="notificationData">
@@ -73,9 +93,6 @@
         <td>
           <button class="editButton">
             <i nz-icon nzType="edit" nzTheme="fill"></i>
-          </button>
-          <button class="imageButton">
-            <i nz-icon nzType="file-image" nzTheme="fill"></i>
           </button>
         </td>
       </tr>
