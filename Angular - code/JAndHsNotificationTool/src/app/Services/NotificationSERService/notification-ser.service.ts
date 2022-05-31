@@ -24,4 +24,20 @@ export class NotificationSERService {
     }
     return this.http.post(this.APILINK, body, this.getOptions());
   }
+
+  PostNotificaitons(newDate:any, CompanyID:any, Notification:any){
+    console.log(newDate);
+    console.log(CompanyID);
+    console.log(Notification);
+    newDate = '"' + newDate + '"';
+
+    let body = {
+      "method": "POSTNOTIFICATION",
+      "tokken": this.SessionManagement.getCurrentUser().token,
+      "newDate": newDate,
+      "CompanyID": CompanyID,
+      "Notification": Notification
+    }
+    return this.http.post(this.APILINK, body, this.getOptions());
+  }
 }

@@ -6,24 +6,20 @@
   <div nz-row>
     <div nz-col nzSpan="12">
       <div class="NotificationForm">
-
         <div class="formItemContainer">
           <label>Company</label><br>
           <nz-select [(ngModel)]="SelectedCompany" (ngModelChange)="CompanyChanged()" [disabled]="EditNotificationObject != null">
             <nz-option *ngFor="let company of CompaniesData" nzValue={{company.CompanyID}} nzLabel={{company.CompanyName}}></nz-option>
           </nz-select>
         </div>
-
         <div class="formItemContainer">
           <label>Greetings</label><br>
           <input type="text" nz-input [(ngModel)]="Greetings" />
         </div>
-
         <div class="formItemContainer">
           <label>Message</label><br>
           <textarea rows="4" nz-input [(ngModel)]="NotificationMessage"></textarea>
         </div>
-
         <div class="saveButtonContainer">
           <button nz-button nzType="primary" (click)="SaveNotificaiton()">Save Notification</button>
           <button nz-button nzType="primary" (click)="SaveImage()"><i nz-icon nzType="download" nzTheme="outline"></i> Download Image</button>
